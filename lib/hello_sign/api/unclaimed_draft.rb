@@ -146,6 +146,7 @@ module HelloSign
       def create_embedded_unclaimed_draft(opts)
         opts[:client_id] ||= self.client_id
         prepare_files opts
+        prepare_form_fields opts
         if opts[:type] == 'request_signature'
           prepare_signers opts
         end
@@ -205,6 +206,7 @@ module HelloSign
         prepare_signers opts
         prepare_ccs opts
         prepare_templates opts
+        prepare_custom_fields opts
         HelloSign::Resource::UnclaimedDraft.new post('/unclaimed_draft/create_embedded_with_template', :body => opts)
       end
 
